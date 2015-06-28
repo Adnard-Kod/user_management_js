@@ -30,11 +30,13 @@ $(document).ready(function(){
       GroupCollection.collection.push(group)
       groupView.render(group.name)
       this.resetForm("#createGroup")
+      var groups = this.autoFill(GroupCollection.collection)
+      $('#selectGroup').select2({data: groups, placeholder: "Select a repo"})
     },
     createUser: function(e) {
       e.preventDefault();
       var user = new User($("#username").val())
-      var groupName = $("#selectGroup").val()
+      var groupName = $("#selectGroup").children().html()
       this.addUserToGroup(user, groupName)
     },
     addUserToGroup: function(user, groupName) {
@@ -65,6 +67,11 @@ $(document).ready(function(){
     },
     resetForm: function(form){
       $(form)[0].reset()
+    },
+    autoFill: function(collection) {
+      return _.map( collection, function(group){
+        return group.name
+      })
     }
   }
 
