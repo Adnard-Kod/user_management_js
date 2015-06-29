@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
   function Controller () {
-    this.mainContainer = $(".main_container")
+    this.mainContainer = $(".container")
     this.template = _.template($('#header-templete').html());
   }
 
@@ -32,61 +32,77 @@ $(document).ready(function(){
     },
     createGroup: function(e) {
       e.preventDefault();
-      var group = new Group($("#groupName").val());
-      masterCollection.group_collection.push(group);
-      groupView.render(group.name);
-      this.resetForm("#createGroup");
-       var data = this.autoFill(masterCollection.user_collection)
-      $('.selectGroup').select2({data: data ,placeholder: "Select a repo"})
+      var group = $("#groupName").val()
+      if (!group == "") {
+        groupView.render($("#groupName").val());
+         var data = this.autoFill(masterCollection.user_collection)
+         this.setSelectBox(data)
+        this.resetForm("#createGroup");
+      } else {
+        toolTip.alertBox("Add a group name.", $("#groupCreateToolTip"), "danger");
+      }
     },
     createUser: function(e) {
       e.preventDefault();
-      var user = new User($("#username").val());
-      masterCollection.user_collection.push(user)
-      userView.render(user.name);
-      var data = this.autoFill(masterCollection.user_collection)
-      this.setSelectBox(data)
-      this.resetForm("#createUser")
+      var username = $("#username").val()
+      if (!username == ""){
+        var user = username
+        masterCollection.user_collection.push(username)
+        userView.render(username);
+        var data = this.autoFill(masterCollection.user_collection)
+        this.setSelectBox(data)
+        this.resetForm("#createUser")
+      } else {
+        toolTip.alertBox("Add a username.", $("#userCreateToolTip"), "danger");
+      }
     },
     addUserToGroup: function(e) {
       e.preventDefault()
-      var form = $(e.target).attr("id")
-      var username = $("#" + form +" input.selectGroup").val()
+      var form = $(e.target).attr("class")
+      var username = $("." + form +" input.selectGroup").val()
       var userDouble = this.checkUser($(e.target), username)
       if (userDouble === true){
-        console.log("user is alreay in this group")
+        toolTip.alertBox("User is alreay in this group.", $("#groupCreateToolTip"), "warning");
       } else {
         var user_template = _.template($('#user-template').html());
         $(e.target).next().append(user_template({username: username}))
-        var data = this.autoFill(masterCollection.user_collection)
-        this.resetSlectBox(data)
       }
     },
     deleteUser: function(e) {
       e.preventDefault();
-      var username = $(e.target).remove()
-      var usernameStr = "." +  $(e.target).attr("id")
+      var username = $(e.target).attr("id")
+      var usernameStr = "li." +  username
+      $(e.target).remove()
       $(usernameStr).remove()
+      masterCollection.deleteUserFromCollection(username)
+      var data = this.autoFill(masterCollection.user_collection)
+      this.setSelectBox(data)
     },
     deleteGroup: function(e){
       var users = $(e.target).parent().next().next().children()
       if (users.length === 0) {
         $(e.target).parent().parent().remove();
       } else {
-        console.log("tooltip there are users in this group");
+        toolTip.alertBox("There are users in this group.", $("#userToolTip"), "warning");
       }
     },
     checkUser: function(target, username){
       // this is gross needs to be refactored
+     var results = []
      var users =  target.parent().children().last().children()
       for (var i = users.length - 1; i >= 0; i--) {
-        if ($(users[i]).attr("class") === username) {
-          console.log("already a user in this group")
-          return true
+        if ($(users[i]).attr("class") == username) {
+          results.push(true)
         } else {
-          return false
+          results.push(false)
         };
       };
+      var x = _.contains(results, true);
+      if(x){
+        return true
+      } else {
+        return false
+      }
     },
     deleteUserFromGroup: function(e){
       e.preventDefault()
@@ -99,18 +115,18 @@ $(document).ready(function(){
       $(form)[0].reset();
     },
     autoFill: function(collection) {
-      return _.map( collection, function(group){
-        return group.name
+      return _.map( collection, function(username){
+        return username
       })
     },
     setSelectBox: function(data) {
-      $('.selectGroup').select2({data: data, placeholder: "Select a repo"})
-    },
-    resetSlectBox: function(){
-      // $('.selectGroup').select2({placeholder: "Select a user"})
+      $('.selectGroup').select2({placeholder: "Select a User", data: data,
+      allowClear: true})
+      $('.selectGroup').select2("val", "");
     }
   }
 
+  var toolTip = new ToolTip
   var groupView = new GroupView();
   var userView = new UserView();
   var app = new Controller();

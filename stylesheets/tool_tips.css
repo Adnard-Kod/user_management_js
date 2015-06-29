@@ -6,10 +6,10 @@
   border-radius: 3px;
   text-align: center;
   font-weight: bold;
+  font-size: 15px;
   color: white;
   padding: 5px;
   padding-top: 10px;
-  height: 39px;
 }
 
 .alert-box .alert-text.success {
