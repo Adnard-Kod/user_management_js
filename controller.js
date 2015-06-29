@@ -52,10 +52,15 @@ $(document).ready(function(){
       e.preventDefault()
       var form = $(e.target).attr("id")
       var username = $("#" + form +" input.selectGroup").val()
-      var user_template = _.template($('#user-template').html());
-      $(e.target).next().append(user_template({username: username}))
-      var data = this.autoFill(masterCollection.user_collection)
-      this.resetSlectBox(data)
+      var userDouble = this.checkUser($(e.target), username)
+      if (userDouble === true){
+        console.log("user is alreay in this group")
+      } else {
+        var user_template = _.template($('#user-template').html());
+        $(e.target).next().append(user_template({username: username}))
+        var data = this.autoFill(masterCollection.user_collection)
+        this.resetSlectBox(data)
+      }
     },
     deleteUser: function(e) {
       e.preventDefault();
@@ -70,6 +75,18 @@ $(document).ready(function(){
       } else {
         console.log("tooltip there are users in this group");
       }
+    },
+    checkUser: function(target, username){
+      // this is gross needs to be refactored
+     var users =  target.parent().children().last().children()
+      for (var i = users.length - 1; i >= 0; i--) {
+        if ($(users[i]).attr("class") === username) {
+          console.log("already a user in this group")
+          return true
+        } else {
+          return false
+        };
+      };
     },
     deleteUserFromGroup: function(e){
       e.preventDefault()
@@ -90,7 +107,7 @@ $(document).ready(function(){
       $('.selectGroup').select2({data: data, placeholder: "Select a repo"})
     },
     resetSlectBox: function(){
-      $('.selectGroup').select2({placeholder: "Select a user"})
+      // $('.selectGroup').select2({placeholder: "Select a user"})
     }
   }
 
