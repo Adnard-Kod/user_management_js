@@ -1,15 +1,9 @@
-function GroupCollectionMaster () {
-  this.collection = []
+function CollectionMaster () {
+  this.group_collection = []
+  this.user_collection = []
 }
 
-GroupCollectionMaster.prototype = {
-  findGroup: function(name){
-    for (var i = this.collection.length - 1; i >= 0; i--) {
-      if (this.collection[i].name === name){
-        return this.collection[i]
-      }
-    }
-  }
-}
+CollectionMaster.prototype = {}
 
-GroupCollection = new GroupCollectionMaster
+
+masterCollection = new CollectionMaster

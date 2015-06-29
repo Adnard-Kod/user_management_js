@@ -1,6 +1,6 @@
 function UserView() {
   this.location = null
-  this.template = _.template($('#user-template').html());
+  this.template = _.template($('#users-template').html());
 }
 
 UserView.prototype = {
@@ -10,9 +10,7 @@ UserView.prototype = {
     this.location = this.setGroup(username, groupName)
   },
   setGroup: function(username, groupName){
-    var group = GroupCollection.findGroup(groupName)
-    var htmlId ="ul#" + group.name
-    this.location = $(htmlId)
+    this.location = $("#usersCollection")
     this.location.append(this.template({username: username}))
   }
 }

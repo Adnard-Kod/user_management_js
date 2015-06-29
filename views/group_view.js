@@ -7,7 +7,7 @@ GroupView.prototype = {
   init: function() {
   },
   render: function(groupName) {
-    this.location = $("#groups")
+    this.location = $("#groupsCollection")
     this.location.append(this.template({groupName: groupName}))
   },
 }
