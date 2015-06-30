@@ -17,11 +17,11 @@
 }
 
 .alert-box .alert-text.warning {
-  background: #F0AD4E;
+  background: #FF358B;
 }
 
 .alert-box .alert-text.danger {
-  background: #D9534F;
+  background: #66afe9;
 }
 
 .alert-box .arrow-down {
@@ -37,11 +37,11 @@
 }
 
 .alert-box .arrow-down.warning {
-  border-top: 10px solid #F0AD4E;
+  border-top: 10px solid #FF358B;
 }
 
 .alert-box .arrow-down.danger {
-  border-top: 10px solid #D9534F;
+  border-top: 10px solid #66afe9;
 }
 
 #reposToolTip {

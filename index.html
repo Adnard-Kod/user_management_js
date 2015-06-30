@@ -6,8 +6,11 @@
   <title>Hello World in Backbone.js</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap_form.min.css">
   <link rel="stylesheet" type="text/css" href="stylesheets/tool_tips.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Lato:700' rel='stylesheet' type='text/css'>
 </head>
-<body>
+<body class="full-height">
   <div class="container">
   </div>
 <!-- templates -->
@@ -20,29 +23,31 @@
       <form id="createGroup">
         <div class="form-group">
           <input id="groupName" type="text" class="form-control" placeholder="create new group">
+          <input type="submit" value="add">
         </div>
-       <button type="submit" class="btn btn-default">Add</button>
       </form>
     </div>
   </div>
   <div class="col-md-6">
-    <h2 id="userCreateToolTip">Ready to Organize Some Users?</h2>
+    <h1 id="userCreateToolTip">Create Users</h1>
     <form id="createUser">
       <div class="form-group">
         <input type="text" id="username" class="form-control" placeholder="Username">
+        <input type="submit" value="add">
       </div>
-      <button type="submit" class="btn btn-default">Add</button>
     </form>
   </div>
 </div>
 <div class="row">
   <div class="col-md-6">
     <h2 id="userToolTip">Groups</h2>
+    <hr>
     <div id="groupsCollection">
     </div>
   </div>
   <div class="col-md-6">
-    <h2>User</h2>
+    <h2>Users</h2>
+    <hr>
     <div id="usersCollection">
     </div>
   </div>
@@ -50,21 +55,21 @@
   </script>
   <script type="text/template" id="group-template">
   <div class="group-box">
-    <h1 id=<%= groupName %>><span><%= groupName %></span> <span class="deleteGroup" >X</h1>
+    <h4 id=<%= groupName %>><span><%= groupName %></span> <span class="deleteGroup" > <i class="fa fa-trash-o"></i></h4>
    <form id="addUsers" class=<%= groupName %>>
     <div class="form-group" id=<%= groupName %>>
       <input class="selectGroup " class="form-control">
+      <input id="addUsers" type="submit" value="add user">
     </div>
-    <input id="addUsers" type="submit" value="add user" class="btn btn-default">
     </form>
     <ul></ul>
   </div>
   </script>
   <script type="text/template" id="users-template">
-    <h1 span class="deleteUser" id=<%= username %>><%= username %> X </h1>
+    <h4 span class="deleteUser" id=<%= username %>><%= username %> <i class="fa fa-trash-o"></i> </h4>
   </script>
   <script type="text/template" id="user-template">
-    <li class=<%= username %> class="deleteUser"><span><%= username %></span> <span class="deleteUser">X</span> </li>
+    <li class=<%= username %> class="deleteUser"><i class="fa fa-heart"></i> <span><%= username %></span> <span class="deleteUser">X</span> </li>
   </script>
   <script type="text/template" id="header-templete">
   </script>

@@ -58,14 +58,19 @@ $(document).ready(function(){
     },
     addUserToGroup: function(e) {
       e.preventDefault()
-      var form = $(e.target).attr("class")
-      var username = $("." + form +" input.selectGroup").val()
-      var userDouble = this.checkUser($(e.target), username)
-      if (userDouble === true){
-        toolTip.alertBox("User is alreay in this group.", $("#groupCreateToolTip"), "warning");
+      var username = $('.selectGroup').val()
+      if(!username == "") {
+        var form = $(e.target).attr("class")
+        var username = $("." + form +" input.selectGroup").val()
+        var userDouble = this.checkUser($(e.target), username)
+        if (userDouble === true){
+          toolTip.alertBox("User is alreay in this group.", $("#groupCreateToolTip"), "warning");
+        } else {
+          var user_template = _.template($('#user-template').html());
+          $(e.target).next().append(user_template({username: username}))
+        }
       } else {
-        var user_template = _.template($('#user-template').html());
-        $(e.target).next().append(user_template({username: username}))
+        toolTip.alertBox("Add a user.", $("#userCreateToolTip"), "danger");
       }
     },
     deleteUser: function(e) {
