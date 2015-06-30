@@ -77,7 +77,7 @@ $(document).ready(function(){
       e.preventDefault();
       var username = $(e.target).attr("id")
       var usernameStr = "li." +  username
-      $(e.target).remove()
+      $(e.target).parent().remove()
       $(usernameStr).remove()
       masterCollection.deleteUserFromCollection(username)
       var data = this.autoFill(masterCollection.user_collection)
@@ -125,9 +125,12 @@ $(document).ready(function(){
       })
     },
     setSelectBox: function(data) {
-      $('.selectGroup').select2({placeholder: "Select a User", data: data,
-      allowClear: true})
-      $('.selectGroup').select2("val", "");
+      var select = $('.selectGroup')
+      if (select.length > 0) {
+        select.select2({placeholder: "Select a User", data: data,
+        allowClear: true})
+        select.select2("val", "");
+      }
     }
   }
 
