@@ -1,8 +1,13 @@
-# account with a lot of issues
-# api.github.com/repos/octocat/Hello-World/issues
-# https://api.github.com/repos/octocat/Hello-World/issues?per_page=5&page=1
+Stories:
 
-+ Put in a persons repo name
-+ dropdown of repos with display, pick one and get all the issues back
-+ press next and get the next 5 repos
-+ click on link and get a profile# user_management_js
+- As an admin I can add users. A user has a name.
+
+- As an admin I can delete users.
+
+- As an admin I can assign users to a group they aren’t already part of.
+
+- As an admin I can remove users from a group.
+
+- As an admin I can create groups.
+
+- As an admin I can delete groups when they no longer have members.
